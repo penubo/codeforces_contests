@@ -29,7 +29,7 @@ int main() {
 		}
 
 		
-		for (int i = 1; i <= n; i++) {
+		for (int i = 0; i <= n; i++) {
 			arr[n][i] = 1;
 			arr[i][n] = 1;
 		}
@@ -39,7 +39,7 @@ int main() {
 		for (int i = 0; flag && i < n; i++) {
 			for (int j = 0; flag && j < n; j++) {
 				if (arr[i][j] == 1) {
-					if (arr[i+1][j] != 1 and arr[i][j+1] != 1) 
+					if (arr[i+1][j] != 1 && arr[i][j+1] != 1) 
 						flag = false;
 				}
 			}
