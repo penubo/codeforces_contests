@@ -14,33 +14,20 @@ int main() {
 		cin >> n >> k;
 
 		bool flag = false;
-
-		if (n <= k) {
-			cout << 1 << "\n";
-			flag = true;
-		}
-		
-		if (!flag && n % 2 == 0 && n / 2 <= k) {
-			cout << 2 << "\n";
-			flag = true;
-		}
-
-
-		int m = n / 2;
-		
-
-		while (!flag && m > 0) {
-			if (n % m == 0 && n / m <= k) {
-				cout << n / m << "\n";
-				flag = true;
-				break;
+		long long ans = n;
+		int i = 1;
+		while (i*i <= n && i <= k) {
+			if (n % i == 0) {
+				if (n / i <= k) {
+					ans = i;
+					break;
+				}
+				if (ans > n / i)
+					ans = n / i;
 			}
-			m -= 2;
+			i += 1;
 		}
-
-		if (!flag)
-			cout << n << "\n";
-
+		cout << ans << "\n";
 	}
 	return 0;
 }
