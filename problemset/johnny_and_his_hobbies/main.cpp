@@ -4,6 +4,39 @@
 
 using namespace std;
 
+int n;
+int arr[1025];
+bool visited[1025];
+
+bool check(int k) {
+	for (int i = 0; i < n; i++) {
+		if (!visited[arr[i] ^ k])
+			return false;
+	}
+	return true;
+}
+
+void solve() {
+
+	cin >> n;
+
+	memset(visited, 0, 1025);
+
+	for (int i = 0; i < n; i++) {
+		cin >> arr[i];
+		visited[arr[i]] = true;
+	}
+
+	for (int k = 1; k < 1024; ++k) {
+		if (check(k)) {
+			cout << k << "\n";
+			return ;
+		}
+	}
+	cout << -1 << "\n";
+			
+}
+
 int main() {
 	ios::sync_with_stdio(0);
 	cin.tie(0);
@@ -12,42 +45,9 @@ int main() {
 	cin >> t;
 
 	while (t--) {
-		int n, maxn = 0;
-		cin >> n;
-		vector<int> a(n);
-		vector<int> b;
 
-		for (int i = 0; i < n; i++) {
-			cin >> a[i];
-			maxn = max(maxn, a[i]);
-		}
-		sort(a.begin(), a.end());
-
-		bool flag;
-		for (int i = 1; i <= maxn; i++) {
-			b.clear();
-			flag = true;
-			for (int j = 0; j < n; j++) {
-				b.push_back(a[j] ^ i);
-			}
-			if (b.size() == n) {
-				sort(b.begin(), b.end());
-				for (int i = 0; i < n; i++) {
-					if (b[i] != a[i])
-						flag = false;
-				}
-			} else {
-				flag = false;
-			}
-			if (flag) {
-				cout << i << "\n";
-				break;
-			}
-		}
-		if (!flag) {
-			cout << -1 << "\n";
-		}
-			
+		solve();
+		
 	}
 
 }
