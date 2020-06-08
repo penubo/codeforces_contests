@@ -8,28 +8,25 @@ int main() {
 
 	int n;
 	cin >> n;
-	vector<int> a(2*n);
-	vector<int> b(n);
-	for (int i = 0; i < n; i++) {
+	vector<int> a(n+1, 0);
+	vector<int> b(n+1, 0);
+	vector<int> p(n+1, 0);
+	vector<int> offset(n+1, 0);
+	for (int i = 1; i <= n; i++) {
 		cin >> a[i];
-		a[n+i] = a[i];
+		p[a[i]] = i;
 	}
-	for (int i = 0; i < n; i++) {
+	for (int i = 1; i <= n; i++) {
 		cin >> b[i];
 	}
 
-	int ans = 0;
-	for (int i = 0; i < a.size() - b.size(); i++) {
-		int cnt = 0;
-		for (int j = 0; j < b.size(); j++) {
-			if (a[i+j] == b[j]) {
-				cnt++;
-			}
-		}
-		ans = max(ans, cnt);
+	for (int i = 1; i <= n; i++) {
+		int cur = p[b[i]] - i;
+		if (cur < 0) cur += n;
+		offset[cur]++;
 	}
 
-	cout << ans << "\n";
+	cout << *max_element(offset.begin(), offset.end()) << "\n";
 	
 
 }
