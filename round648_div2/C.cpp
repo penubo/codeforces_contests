@@ -2,52 +2,34 @@
 
 using namespace std;
 
-void solve() {
-
-	int n, m;
-	cin >> n >> m;
-
-	vector<vector<char>> arr(n, vector<char>(m, 0));
-	queue<pair<int, int>> q;
-
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < m; j++) {
-			cin >> arr[i][j];
-			if (arr[i][j] == '.') {
-				q.push({i, j});
-			}
-		}
-	}
-
-	bool flag = false;
-	while (1) {
-		// check
-
-
-
-		if (q.empty())
-			break;
-		// block
-
-	}
-
-	if (flag) {
-		cout << "Yes\n";
-	} else {
-		cout << "No\n";
-	}
-
-}
-
 int main() {
 	ios::sync_with_stdio(0);
 	cin.tie(0);
 
-	int t;
-	cin >> t;
-	while (t--) {
-		solve();
+	int n;
+	cin >> n;
+	vector<int> a(2*n);
+	vector<int> b(n);
+	for (int i = 0; i < n; i++) {
+		cin >> a[i];
+		a[n+i] = a[i];
+	}
+	for (int i = 0; i < n; i++) {
+		cin >> b[i];
 	}
 
+	int ans = 0;
+	for (int i = 0; i < a.size() - b.size(); i++) {
+		int cnt = 0;
+		for (int j = 0; j < b.size(); j++) {
+			if (a[i+j] == b[j]) {
+				cnt++;
+			}
+		}
+		ans = max(ans, cnt);
+	}
+
+	cout << ans << "\n";
 	
+
 }
