@@ -2,49 +2,69 @@
 
 using namespace std;
 
-int main() {
+int main()
+{
 	ios::sync_with_stdio(0);
 	cin.tie(0);
 
 	int t;
 	cin >> t;
-	while (t--) {
+	while (t--)
+	{
 		int n;
 		cin >> n;
 		vector<int> a(n, 0);
 		vector<int> b(n, 0);
-		for (int i = 0; i < n; i++) {
+		for (int i = 0; i < n; i++)
+		{
 			cin >> a[i];
 		}
-		for (int i = 0; i < n; i++) {
+		bool ot = false, om = false;
+		for (int i = 0; i < n; i++)
+		{
 			cin >> b[i];
+			if (b[i])
+				ot = true;
+			else
+				om = true;
 		}
-		
-		int aa = 0, bb = 0;
-		bool flag = true;
 
-		for (int i = 0; i < n; i++) {
-			if (b[i]) {
-				if (aa > a[i]) {
-					flag = false;
-					break;
+		if (ot && om)
+			cout << "Yes\n";
+		else
+		{
+			int aa = 0, bb = 0;
+			bool flag = true;
+
+			for (int i = 0; i < n; i++)
+			{
+				if (b[i])
+				{
+					if (aa > a[i])
+					{
+						flag = false;
+						break;
+					}
+					aa = a[i];
 				}
-				aa = a[i];
-			} else {
-				if (bb > a[i]) {
-					flag = false;
-					break;
+				else
+				{
+					if (bb > a[i])
+					{
+						flag = false;
+						break;
+					}
+					bb = a[i];
 				}
-				bb = a[i];
+			}
+			if (flag)
+			{
+				cout << "Yes\n";
+			}
+			else
+			{
+				cout << "No\n";
 			}
 		}
-
-		if (flag) {
-			cout << "Yes\n";
-		} else {
-			cout << "No\n";
-		}
 	}
-
-	
 }
