@@ -2,54 +2,44 @@
 
 using namespace std;
 
-int main() {
+#define INF 2e9 + 1
+
+int main()
+{
 
 	int n, k;
 	cin >> n >> k;
-	deque<int> uu, aa, bb;
-	for (int i = 0; i < n; i++) {
+	vector<int> times[4];
+	vector<int> sums[4];
+	for (int i = 0; i < n; i++)
+	{
 		int t, a, b;
 		cin >> t >> a >> b;
-		if (a && b)
-			uu.push_back(t);
-		else if (a)
-			aa.push_back(t);
-		else if (b)
-			bb.push_back(t);
+		times[2 * a + b].push_back(t);
 	}
 
-	if (aa.size() + uu.size() < k || bb.size() + uu.size() < k)
-		cout << "-1\n";
-	else {
-		sort(aa.begin(), aa.end());
-		sort(bb.begin(), bb.end());
-		sort(uu.begin(), uu.end());
-
-		long long ans = 0;
-		k *= 2;
-		
-		while (k > 0) {
-			if (aa.size() == 0 || bb.size() == 0) {
-					ans += uu.front();
-					uu.pop_front();
-					k--;
-			} else if (uu.size() == 0) {
-				ans += aa.front() + bb.front();
-				aa.pop_front(); bb.pop_front();
-			} else {
-				if (aa.front() + bb.front() < uu.front()) {
-					ans += aa.front() + bb.front();
-					aa.pop_front(); bb.pop_front();
-				} else {
-					ans += uu.front();
-					uu.pop_front();
-					k--;
-				}
-			}
-			k--;
+	for (int i = 0; i < 4; ++i)
+	{
+		sort(times[i].begin(), times[i].end());
+		sums[i].push_back(0);
+		for (auto it : times[i])
+		{
+			sums[i].push_back(sums[i].back() + it);
 		}
-		cout << ans << "\n";
 	}
+
+	int ans = INF;
+	for (int cnt = 0; cnt < min(k + 1, int(sums[3].size())); ++cnt)
+	{
+		if (k - cnt < int(sums[1].size()) && k - cnt < int(sums[2].size()))
+		{
+			ans = min(ans, sums[3][cnt] + sums[1][k - cnt] + sums[2][k - cnt]);
+		}
+	}
+
+	if (ans == INF)
+		ans = -1;
+	cout << ans << endl;
 
 	return 0;
 }
